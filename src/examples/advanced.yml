@@ -1,0 +1,18 @@
+description: >
+  Triggering tests that have a particular plan label executing on Chrome only using a mabl test branch.
+usage:
+  version: 2.1
+  orbs:
+    mabl-trigger-tests: mabl/trigger-tests@1.0.0
+    jobs:
+      build:
+        machine: true
+        steps:
+          - run-mabl-tests/test-job:
+              api-key: MABL_API_KEY
+              environment-id: myenvironmentID-e
+              application-id: myApplicationID-a
+              browsers: chrome
+              labels: myPlanLabel
+              branch: developmentBranch
+                      

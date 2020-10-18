@@ -1,0 +1,9 @@
+description: >
+  This command parses the execution results and generates a JUnit report.
+steps:
+  - run:
+      environment:
+        PARAM_MABL_RESULTS: 'test-results/mabl/execution_result.json'
+        PARAM_MABL_JUNIT: 'test-results/mabl/junit.xml'
+      name: Parse results
+      command: <<include(scripts/parse-results.sh)>>

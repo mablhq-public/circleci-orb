@@ -1,0 +1,93 @@
+description: >
+  Triggers tests to execute in mabl.
+executor: mabl-test-executor
+parameters:
+  api-key:
+    type: env_var_name
+    default: MABL_API_KEY
+    description: |
+      The API key of your workspace. You can find the API key on the Settings/API page.
+      Either an Integration or a CI/CD Deployment Integration key is required.
+  application-id:
+    type: string
+    default: ""
+    description: |
+      (Optional) The application ID to run tests on. Note that either an environment ID or
+      an application ID must be provided.
+  environment-id:
+    type: string
+    default: ""
+    description: |
+      (Optional) The environment ID to run the tests in. Note that either an environment ID or
+      an application ID must be provided.
+  labels:
+    type: string
+    default: ""
+    description: |
+      (Optional) A comma-separated list of plan labels. Plans with any of the labels will be
+      executed.
+  mabl-branch:
+    type: string
+    default: ""
+    description: |
+      (Optional) The mabl branch to run tests against.
+  await-completion:
+    type: boolean
+    default: true
+    description: |
+      Wait for the deployment tests to finish before proceeding.
+  browsers:
+    type: string
+    default: ""
+    description: |
+      Comma separated list of browsers to test against (internet_explorer, safari, chrome,
+      firefox). If not provided, mabl will test the browsers configured on the triggered test.
+  url:
+    type: string
+    default: ""
+    description: |
+      The base uri to test against. If provided, this will override the default URL associated
+      with the environment in mabl.
+  rebaseline-images:
+    type: boolean
+    default: false
+    description: |
+      Set true to reset the visual baseline to the current deployment.
+  set-static-baseline:
+    type: boolean
+    default: false
+    description: |
+      Set to true to use current deployment as an exact static baseline. If set, mabl will not
+      model dynamic areas and will use the current deployment as the pixel-exact visual baseline.
+  revision:
+    type: string
+    default: ""
+    description: |
+      The code revision hash for the application under test.
+  debug:
+    type: boolean
+    default: false
+    description: |
+      Set to true to see more output in the logs.
+steps:
+  - run-tests:
+      api-key: << parameters.api-key >>
+      application-id: << parameters.application-id >>
+      environment-id: << parameters.environment-id >>
+      labels: << parameters.labels >>
+      mabl-branch: << parameters.mabl-branch >>
+      await-completion: << parameters.await-completion >>
+      browsers: << parameters.browsers >>
+      url: << parameters.url >>
+      rebaseline-images: << parameters.rebaseline-images >>
+      set-static-baseline: << parameters.set-static-baseline >>
+      revision: << parameters.revision >>
+      debug: << parameters.debug >>
+  # - when:
+  #     condition: << parameters.await-completion >>
+  #     steps:
+  #       - parse-results:
+  #       - store_test_results:
+  #           path: test-results
+  #       - store_artifacts:
+  #           path: test-results/mabl

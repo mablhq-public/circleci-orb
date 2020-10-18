@@ -1,14 +1,10 @@
-# Orb Project Template
+# mabl trigger-tests Orb
 
 [![CircleCI Build Status](https://circleci.com/gh/mablhq/circleci-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/mablhq/circleci-orb) [![CircleCI Orb Version](https://img.shields.io/badge/endpoint.svg?url=https://badges.circleci.io/orb/mabl/trigger-tests)](https://circleci.com/orbs/registry/orb/mabl/trigger-tests) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/mablhq/circleci-orb/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
-
-
 
 A starter template for orb projects. Build, test, and publish orbs automatically on CircleCI with [Orb-Tools](https://circleci.com/orbs/registry/orb/circleci/orb-tools).
 
 Additional READMEs are available in each directory.
-
-
 
 ## Resources
 
@@ -20,6 +16,7 @@ Additional READMEs are available in each directory.
 We welcome [issues](https://github.com/mablhq/circleci-orb/issues) to and [pull requests](https://github.com/mablhq/circleci-orb/pulls) against this repository!
 
 ### How to Publish
+
 * Create and push a branch with your new features.
 * When ready to publish a new production version, create a Pull Request from fore _feature branch_ to `master`.
 * The title of the pull request must contain a special semver tag: `[semver:<segement>]` where `<segment>` is replaced by one of the following values.
@@ -36,6 +33,4 @@ Example: `[semver:major]`
 * Squash and merge. Ensure the semver tag is preserved and entered as a part of the commit message.
 * On merge, after manual approval, the orb will automatically be published to the Orb Registry.
 
-
 For further questions/comments about this or other orbs, visit the Orb Category of [CircleCI Discuss](https://discuss.circleci.com/c/orbs).
-

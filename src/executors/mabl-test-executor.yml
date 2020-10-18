@@ -1,0 +1,4 @@
+description: >
+  Executor for triggering mabl tests.
+docker:
+  - image: cimg/base:stable

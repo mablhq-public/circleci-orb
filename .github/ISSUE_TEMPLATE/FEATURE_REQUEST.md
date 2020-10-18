@@ -6,9 +6,8 @@ labels: feature_request
 assignees: ''
 ---
 
-## Describe Request:
+## Request Description
 
-## Examples:
+## Examples
 
-## Supporting Documentation Links:
-
+## Supporting Documentation Links
