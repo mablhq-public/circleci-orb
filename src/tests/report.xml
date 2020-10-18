@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<testsuites xmlns:xlink="http://www.w3.org/1999/xlink">
-<testsuite name="Homepage Test" tests="2" errors="0" failures="0" timestamp="2020-10-16T23:01:58" time="103">
-<testcase classname="Homepage Test" name="Homepage Test" time="71" xlink:type="simple" xlink:href="https://app.mabl.com/workspaces/8OfudHtGzLyWLU1-LBjZtQ-w/test/journey-runs/MY855n2yJWn9Cq1ysHFolQ-jr"/>
-<testcase classname="Homepage Test" name="First Visual Test" time="101" xlink:type="simple" xlink:href="https://app.mabl.com/workspaces/8OfudHtGzLyWLU1-LBjZtQ-w/test/journey-runs/zGt1AvPlJKsAstpSkWiZTQ-jr"/>
-</testsuite>
-</testsuites>
