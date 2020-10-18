@@ -1,8 +1,8 @@
 # tests/
 
-This is where your testing scripts for whichever language is embeded in your orb live, which can be executed locally and within a CircleCI pipeline prior to publishing.
+This is where your testing scripts for whichever language is embedded in your orb live, which can be executed locally and within a CircleCI pipeline prior to publishing.
 
-# Testing Orbs
+## Testing Orbs
 
 This orb is built using the `circleci orb pack` command, which allows the _command_ logic to be separated out into separate _shell script_ `.sh` files. Because the logic now sits in a known and executable language, it is possible to perform true unit testing using existing frameworks such a [BATS-Core](https://github.com/bats-core/bats-core#installing-bats-from-source).
 
@@ -25,8 +25,8 @@ steps:
         ORB_SOURCE_PATH: <<parameters.source>>
       command: <<include(scripts/command.sh)>>
 ```
-<!--- <span> is used to disable the automatic linking to a potential website. --->
-## **Example _command<span>.sh_**
+<!--- ' dot ' is used to disable the automatic linking to a potential website. --->
+## **Example _command dot sh_**
 
 ```bash
 
@@ -86,7 +86,8 @@ Tests can contain any valid shell code. Any error codes returned during a test w
 
 In this example, we grep the contents of `log.txt.` which should contain a `success` result if the `CreatePackage` function we had loaded executed successfully.
 
-## See:
- - [BATS Orb](https://circleci.com/orbs/registry/orb/circleci/bats)
- - [Orb Testing CircleCI Docs](https://circleci.com/docs/2.0/testing-orbs)
- - [BATS-Core GitHub](https://github.com/bats-core/bats-core)
+## See
+
+- [BATS Orb](https://circleci.com/orbs/registry/orb/circleci/bats)
+- [Orb Testing CircleCI Docs](https://circleci.com/docs/2.0/testing-orbs)
+- [BATS-Core GitHub](https://github.com/bats-core/bats-core)
