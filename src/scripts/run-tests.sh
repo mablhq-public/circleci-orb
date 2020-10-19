@@ -1,9 +1,15 @@
 function run_tests() {
-  USER_AGENT="mabl-circleci-orb/MABL_ORB_VERSION"
+  USER_AGENT="mabl-circleci-orb/1.0.0"
   
   # Verify parameters
   if [ -z "${PARAM_API_KEY}" ]; then
     echo "api-key mandatory parameter is missing."
+    return 1
+  fi
+
+  KEY=${!PARAM_API_KEY}
+  if [ -z "${KEY}" ]; then
+    echo "missing API key value."
     return 1
   fi
   
@@ -113,7 +119,7 @@ function run_tests() {
   mkdir -p test-results/mabl
   
   # Submit deployment event
-  deployment_event=$(curl -s "https://api.mabl.com/events/deployment" -u "key:${PARAM_API_KEY}" -A "${USER_AGENT}" -H 'Content-Type:application/json' -d "${PARAMS_JSON}")
+  deployment_event=$(curl -s "https://api.mabl.com/events/deployment" -u "key:${KEY}" -A "${USER_AGENT}" -H 'Content-Type:application/json' -d "${PARAMS_JSON}")
   debug "Received event: $deployment_event"
   event_id=$(echo "${deployment_event}" | jq -r '.id')
   if [ -n "${event_id}" ] && [[ "${event_id}" != *-v ]]; then
@@ -132,7 +138,7 @@ function run_tests() {
     while [ ${complete} == false ]; do
       echo "Waiting for executions to complete..."
       sleep 10
-      results=$(curl -s "https://api.mabl.com/execution/result/event/${event_id}" -A "${USER_AGENT}" -u "key:${PARAM_API_KEY}")
+      results=$(curl -s "https://api.mabl.com/execution/result/event/${event_id}" -A "${USER_AGENT}" -u "key:${KEY}")
       debug "execution event result: $results"
       plan_metrics=$(echo "${results}" | jq '.plan_execution_metrics')
       if [ "${plan_metrics}" == "null" ]; then
@@ -177,8 +183,15 @@ function run_tests() {
   fi
 }
 
-debug() {
+function debug() {
   if [ "${PARAM_DEBUG}" = "true" ]; then
     echo "$1"
   fi
 }
+
+# Will not run if sourced for bats.
+# View src/tests for more information.
+TEST_ENV="bats-core"
+if [ "${0#*$TEST_ENV}" == "$0" ]; then
+    run_tests
+fi

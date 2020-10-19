@@ -1,6 +1,7 @@
 description: >
   Triggers tests to execute in mabl.
-executor: mabl-test-executor
+docker:
+  - image: cimg/base:stable
 parameters:
   api-key:
     type: env_var_name

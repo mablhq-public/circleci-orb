@@ -1,5 +1,11 @@
 function parse_exec_results() {
-    local JSON KEYS PAIR KEY TMPFILE FIRST_CALL KV_FILE
+    local JSON KEYS PAIR KEY TMPFILE FIRST_CALL KV_FILE DATE_CMD
+
+    DATE_CMD="date"
+    # MacOS built-in date command does not work, try gdate instead
+    $(date --help 2>&1 >/dev/null) || DATE_CMD="gdate"
+    export DATE_CMD
+    ${DATE_CMD} 2>&1 >/dev/null || (echo "missing date command."; return 1)
 
     TMPFILE=`mktemp`
     jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" <"$1" >"${TMPFILE}"
@@ -60,7 +66,7 @@ function parse_exec_results() {
       plan="${EXEC_RESULTS[executions:${i}:plan:name]}"
       while [ -n "${plan}" ]; do
         epoch=`echo ${EXEC_RESULTS[executions:${i}:start_time]} | sed 's/\([0-9]*\)\([0-9][0-9][0-9]\)/\1.\2/g'`
-        timestamp=`gdate -d @${epoch} -u +%Y-%m-%dT%H:%M:%S`
+        timestamp=`${DATE_CMD} -d @${epoch} -u +%Y-%m-%dT%H:%M:%S`
         suiteTime=$(((${EXEC_RESULTS[executions:${i}:stop_time]}-${EXEC_RESULTS[executions:${i}:start_time]})/1000))
         declare -a testcases
         j=0
@@ -139,3 +145,10 @@ function parse_results() {
 
   return $?
 }
+
+# Will not run if sourced for bats.
+# View src/tests for more information.
+TEST_ENV="bats-core"
+if [ "${0#*$TEST_ENV}" == "$0" ]; then
+    parse_results
+fi
