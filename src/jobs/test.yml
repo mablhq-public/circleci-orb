@@ -84,11 +84,11 @@ steps:
       set-static-baseline: << parameters.set-static-baseline >>
       revision: << parameters.revision >>
       debug: << parameters.debug >>
-  # - when:
-  #     condition: << parameters.await-completion >>
-  #     steps:
-  #       - parse-results:
-  #       - store_test_results:
-  #           path: test-results
-  #       - store_artifacts:
-  #           path: test-results/mabl
+  - when:
+      condition: << parameters.await-completion >>
+      steps:
+        - parse-results
+        - store_test_results:
+            path: test-results
+        - store_artifacts:
+            path: test-results/mabl
