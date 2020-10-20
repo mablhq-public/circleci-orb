@@ -72,7 +72,7 @@ parameters:
 steps:
   - run:
       environment:
-        PARAM_MABL_API_KEY: <<parameters.api-key>>
+        PARAM_API_KEY: <<parameters.api-key>>
         PARAM_APPLICATION_ID: <<parameters.application-id>>
         PARAM_ENVIRONMENT_ID: <<parameters.environment-id>>
         PARAM_LABELS: <<parameters.labels>>
