@@ -109,8 +109,16 @@ function run_tests() {
     PARAMS_JSON="${PARAMS_JSON} ${PLAN_OVERRIDES_JSON}"
   fi
   
-  ACTIONS_JSON="\"actions\": { \"rebaseline_images\":\"${PARAM_REBASELINE_IMAGES}\","
-  ACTIONS_JSON="${ACTIONS_JSON}\"set_static_baseline\":\"${PARAM_SET_STATIC_BASELINE}\" }"
+  REBASELINE="false"
+  if [ "${PARAM_REBASELINE_IMAGES}" = "1" ] || [ "${PARAM_REBASELINE_IMAGES}" = "true" ]; then
+    REBASELINE="true"
+  fi
+  SET_STATIC_BASELINE="false"
+  if [ "${PARAM_SET_STATIC_BASELINE}" = "1" ] || [ "${PARAM_SET_STATIC_BASELINE}" = "true" ]; then
+    SET_STATIC_BASELINE="true"
+  fi
+  ACTIONS_JSON="\"actions\": { \"rebaseline_images\":\"${REBASELINE}\","
+  ACTIONS_JSON="${ACTIONS_JSON}\"set_static_baseline\":\"${SET_STATIC_BASELINE}\" }"
   
   PARAMS_JSON="${PARAMS_JSON}${ACTIONS_JSON} }"
   debug "Parameters: ${PARAMS_JSON}"
@@ -133,7 +141,7 @@ function run_tests() {
   # Poll execution result if configured to do so
   succeeded=false
   failed_plans=0
-  if [ "${PARAM_AWAIT_COMPLETION}" = "true" ]; then
+  if [ "${PARAM_AWAIT_COMPLETION}" = "1" ]; then
     complete=false
     while [ ${complete} == false ]; do
       echo "Waiting for executions to complete..."
@@ -168,7 +176,7 @@ function run_tests() {
     done
     echo
     echo "${results}" >test-results/mabl/execution_result.json
-    if [ "${PARAM_DEBUG}" = "true" ]; then
+    if [ "${PARAM_DEBUG}" = "1" ]; then
       echo "Full Results:"
       cat test-results/mabl/execution_result.json
       echo
@@ -184,7 +192,7 @@ function run_tests() {
 }
 
 function debug() {
-  if [ "${PARAM_DEBUG}" = "true" ]; then
+  if [ "${PARAM_DEBUG}" = "1" ]; then
     echo "$1"
   fi
 }
