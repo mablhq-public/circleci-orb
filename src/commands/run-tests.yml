@@ -6,7 +6,7 @@ parameters:
     default: MABL_API_KEY
     description: |
       The environment variable holding the API key of your workspace. You can find the API key
-      on the Settings/API page. Either an Integration or a CI/CD Deployment Integration key is 
+      on the Settings/API page. Either an Integration or a CI/CD Deployment Integration key is
       required.
   application-id:
     type: string
