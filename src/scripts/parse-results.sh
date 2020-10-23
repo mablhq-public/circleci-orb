@@ -3,7 +3,7 @@ function parse_exec_results() {
 
     DATE_CMD="date"
     # MacOS built-in date command does not work, try gdate instead
-    date --help >dev/null 2>&1 || DATE_CMD="gdate"
+    date --help >/dev/null 2>&1 || DATE_CMD="gdate"
     export DATE_CMD
     ${DATE_CMD} >/dev/null 2>&1 || (echo "missing date command."; return 1)
 
