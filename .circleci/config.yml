@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  # Replace this with your own!
+  # Replace this with your own
   trigger-tests: mabl/trigger-tests@<<pipeline.parameters.dev-orb-version>>
   orb-tools: circleci/orb-tools@10.0
   bats: circleci/bats@1.0
