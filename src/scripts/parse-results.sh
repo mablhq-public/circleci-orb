@@ -1,13 +1,13 @@
 function parse_exec_results() {
-    local JSON KEYS PAIR KEY TMPFILE FIRST_CALL KV_FILE DATE_CMD
+    local KEYS PAIR KEY TMPFILE FIRST_CALL KV_FILE DATE_CMD
 
     DATE_CMD="date"
     # MacOS built-in date command does not work, try gdate instead
-    $(date --help 2>&1 >/dev/null) || DATE_CMD="gdate"
+    date --help >dev/null 2>&1 || DATE_CMD="gdate"
     export DATE_CMD
-    ${DATE_CMD} 2>&1 >/dev/null || (echo "missing date command."; return 1)
+    ${DATE_CMD} >/dev/null 2>&1 || (echo "missing date command."; return 1)
 
-    TMPFILE=`mktemp`
+    TMPFILE=$(mktemp)
     jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" <"$1" >"${TMPFILE}"
     KEYS=''
 
@@ -17,7 +17,7 @@ function parse_exec_results() {
       KV_FILE="$3"
       FIRST_CALL="false"
     else
-      KV_FILE=`mktemp`
+      KV_FILE=$(mktemp)
     fi
 
     while read -r PAIR; do
@@ -25,15 +25,15 @@ function parse_exec_results() {
         if [ -z "$PAIR" ]; then
             break
         fi
-        PAIR_KEY=`echo $PAIR | cut -d'=' -f1`
-        PAIR_VALUE=`echo $PAIR | cut -d'=' -f2`
+        PAIR_KEY=$(echo $PAIR | cut -d'=' -f1)
+        PAIR_VALUE=$(echo $PAIR | cut -d'=' -f2)
         if [ -z "$KEYS" ]; then
             KEY="$PAIR_KEY"
         else
             KEY="$KEYS:$PAIR_KEY"
         fi
-        if [[ "$PAIR_VALUE" == {* ]] || [[ "$PAIR_VALUE" == [* ]]; then
-            PV_FILE=`mktemp`
+        if [[ "${PAIR_VALUE}" == \{* ]] || [[ "${PAIR_VALUE}" == [* ]]; then
+            PV_FILE=$(mktemp)
             echo "${PAIR_VALUE}" > "${PV_FILE}"
             parse_exec_results "${PV_FILE}" "${KEY}" "${KV_FILE}"
             rm -f "${PV_FILE}"
@@ -41,12 +41,12 @@ function parse_exec_results() {
             echo "${KEY}" >>"${KV_FILE}"
             echo "${PAIR_VALUE}" >>"${KV_FILE}"
         fi
-    done < ${TMPFILE}
-    rm -f ${TMPFILE}
+    done < "${TMPFILE}"
+    rm -f "${TMPFILE}"
 
     if [ "${FIRST_CALL}" = "true" ]; then
       local i j k epoch timestamp suiteTime testcases testName testFailures testTime \
-        testLink testSuccess testStatus testStatusCause line kv_key kv_val
+        testLink testSuccess testStatus testStatusCause line kv_key
       declare -A EXEC_RESULTS
 
       kv_key=""
@@ -65,14 +65,14 @@ function parse_exec_results() {
       i=0
       plan="${EXEC_RESULTS[executions:${i}:plan:name]}"
       while [ -n "${plan}" ]; do
-        epoch=`echo ${EXEC_RESULTS[executions:${i}:start_time]} | sed 's/\([0-9]*\)\([0-9][0-9][0-9]\)/\1.\2/g'`
-        timestamp=`${DATE_CMD} -d @${epoch} -u +%Y-%m-%dT%H:%M:%S`
+        epoch=$(echo ${EXEC_RESULTS[executions:${i}:start_time]} | sed 's/\([0-9]*\)\([0-9][0-9][0-9]\)/\1.\2/g')
+        timestamp=$(${DATE_CMD} -d @${epoch} -u +%Y-%m-%dT%H:%M:%S)
         suiteTime=$(((${EXEC_RESULTS[executions:${i}:stop_time]}-${EXEC_RESULTS[executions:${i}:start_time]})/1000))
         declare -a testcases
         j=0
         testFailures=0
         while true; do
-          testName=`get_test_name $i ${EXEC_RESULTS[executions:${i}:journey_executions:${j}:journey_id]}`
+          testName=$(get_test_name $i ${EXEC_RESULTS[executions:${i}:journey_executions:${j}:journey_id]})
           testTime=$(((${EXEC_RESULTS[executions:${i}:journey_executions:${j}:stop_time]}-${EXEC_RESULTS[executions:${i}:journey_executions:${j}:start_time]})/1000))
           testLink=${EXEC_RESULTS[executions:${i}:journey_executions:${j}:app_href]}
           testSuccess=${EXEC_RESULTS[executions:${i}:journey_executions:${j}:success]}
@@ -90,7 +90,7 @@ function parse_exec_results() {
           fi
           j=$((j+1))
           if [ -n "${EXEC_RESULTS[executions:${i}:journey_executions:${j}:journey_id]}" ]; then
-            testName=`get_test_name $i ${EXEC_RESULTS[executions:${i}:journey_executions:${j}:journey_id]}`
+            testName=$(get_test_name $i ${EXEC_RESULTS[executions:${i}:journey_executions:${j}:journey_id]})
           else
             break
           fi
@@ -127,7 +127,7 @@ function get_test_name() {
     id=${EXEC_RESULTS[executions:${exec_id}:journeys:${i}:id]}
   done
 
-  echo ${test_name}
+  echo "${test_name}"
 }
 
 function parse_results() {
