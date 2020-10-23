@@ -25,8 +25,8 @@ function parse_exec_results() {
         if [ -z "$PAIR" ]; then
             break
         fi
-        PAIR_KEY=$(echo $PAIR | cut -d'=' -f1)
-        PAIR_VALUE=$(echo $PAIR | cut -d'=' -f2)
+        PAIR_KEY=$(echo "${PAIR}" | cut -d'=' -f1)
+        PAIR_VALUE=$(echo "${PAIR}" | cut -d'=' -f2)
         if [ -z "$KEYS" ]; then
             KEY="$PAIR_KEY"
         else
@@ -65,14 +65,14 @@ function parse_exec_results() {
       i=0
       plan="${EXEC_RESULTS[executions:${i}:plan:name]}"
       while [ -n "${plan}" ]; do
-        epoch=$(echo ${EXEC_RESULTS[executions:${i}:start_time]} | sed 's/\([0-9]*\)\([0-9][0-9][0-9]\)/\1.\2/g')
-        timestamp=$(${DATE_CMD} -d @${epoch} -u +%Y-%m-%dT%H:%M:%S)
+        epoch=$(echo "${EXEC_RESULTS[executions:${i}:start_time]}" | sed 's/\([0-9]*\)\([0-9][0-9][0-9]\)/\1.\2/g')
+        timestamp=$(${DATE_CMD} -d @"${epoch}" -u +%Y-%m-%dT%H:%M:%S)
         suiteTime=$(((${EXEC_RESULTS[executions:${i}:stop_time]}-${EXEC_RESULTS[executions:${i}:start_time]})/1000))
         declare -a testcases
         j=0
         testFailures=0
         while true; do
-          testName=$(get_test_name $i ${EXEC_RESULTS[executions:${i}:journey_executions:${j}:journey_id]})
+          testName=$(get_test_name "${i}" "${EXEC_RESULTS[executions:${i}:journey_executions:${j}:journey_id]}")
           testTime=$(((${EXEC_RESULTS[executions:${i}:journey_executions:${j}:stop_time]}-${EXEC_RESULTS[executions:${i}:journey_executions:${j}:start_time]})/1000))
           testLink=${EXEC_RESULTS[executions:${i}:journey_executions:${j}:app_href]}
           testSuccess=${EXEC_RESULTS[executions:${i}:journey_executions:${j}:success]}
@@ -90,7 +90,7 @@ function parse_exec_results() {
           fi
           j=$((j+1))
           if [ -n "${EXEC_RESULTS[executions:${i}:journey_executions:${j}:journey_id]}" ]; then
-            testName=$(get_test_name $i ${EXEC_RESULTS[executions:${i}:journey_executions:${j}:journey_id]})
+            testName=$(get_test_name "${i}" "${EXEC_RESULTS[executions:${i}:journey_executions:${j}:journey_id]}")
           else
             break
           fi
