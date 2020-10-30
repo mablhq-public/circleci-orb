@@ -13,4 +13,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial Release
 
-[1.0.0]: GITHUB TAG URL
+[Unreleased]: https://github.com/mablhq-public/circleci-orb/compare/1.0.0...main
+[1.0.0]: https://github.com/mablhq-public/circleci-orb/releases/tag/1.0.0
