@@ -29,8 +29,11 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      # - trigger-tests/run-tests
-      # - trigger-tests/parse-results
+      - trigger-tests/test:
+          api-key: $MABL_CICD_KEY
+          application-id: $MABL_APPLICATION_ID
+          environment-id: $MABL_ENVIRONMENT_ID
+          labels: smoke
 
 workflows:
   # Prior to producing a development orb (which requires credentials) basic validation, linting, and even unit testing can be performed.
