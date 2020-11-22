@@ -25,21 +25,14 @@ parameters:
 jobs:
   # Define one or more jobs which will utilize your orb's commands and parameters to validate your changes.
   integration-test:
-    parameters:
-      run-tests-env-id:
-        type: env_var_name
-        default: MABL_ENVIRONMENT_ID
-      run-tests-app-id:
-        type: env_var_name
-        default: MABL_APPLICATION_ID
     docker:
       - image: cimg/base:stable
     steps:
       - checkout
       - trigger-tests/run-tests:
           api-key: MABL_CICD_KEY
-          environment-id: << ${parameters.run-tests-env-id} >>
-          application-id: << ${parameters.run-tests-app-id} >>
+          environment-id: WRZ3WcvFQ2MTgqC41ZxmMw-e
+          application-id: mZdHH6jnBGLW6G56mMK3tg-a
           labels: smoke
       - trigger-tests/parse-results
 
