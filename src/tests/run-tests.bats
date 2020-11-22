@@ -34,7 +34,7 @@ setup() {
     export PARAM_APPLICATION_ID="invalid-id"
     run run_tests
     [ "$status" -eq 1 ]
-    [ "$output" = "application-id parameter must end with a '-a'." ]
+    [ "$output" = "application-id parameter (${PARAM_APPLICATION_ID}) must end with a '-a'." ]
 }
 
 @test '5: Invalid environment ID' {
@@ -43,7 +43,7 @@ setup() {
     export PARAM_ENVIRONMENT_ID="invalid-id"
     run run_tests
     [ "$status" -eq 1 ]
-    [ "$output" = "environment-id parameter must end with a '-e'." ]
+    [ "$output" = "environment-id parameter (${PARAM_ENVIRONMENT_ID}) must end with a '-e'." ]
 }
 
 @test '6: Invalid browser type - single value' {
