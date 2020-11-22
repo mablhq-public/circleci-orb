@@ -37,8 +37,8 @@ jobs:
           command: echo ${MABL_APPLICATION_ID}
       - trigger-tests/run-tests:
           api-key: MABL_CICD_KEY
-          application-id: ${MABL_APPLICATION_ID}
-          environment-id: ${MABL_ENVIRONMENT_ID}
+          application-id: $MABL_APPLICATION_ID
+          environment-id: $MABL_ENVIRONMENT_ID
           labels: smoke
       - trigger-tests/parse-results
 
