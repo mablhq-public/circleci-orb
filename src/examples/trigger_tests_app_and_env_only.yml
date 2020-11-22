@@ -3,12 +3,17 @@ description: >
 usage:
   version: 2.1
   orbs:
-    mabl-trigger-tests: mabl/trigger-tests@<<pipeline.parameters.dev-orb-version>>
+    mabl-trigger-tests: mabl/trigger-tests@1.0.3
     jobs:
-      build:
+      run-mabl-tests:
         machine: true
         steps:
           - mabl-trigger-tests/test:
               api-key: MABL_API_KEY
               environment-id: myenvironmentID-e
               application-id: myApplicationID-a
+    workflows:
+      test-my-app:
+        jobs:
+          - run-mabl-tests
+
