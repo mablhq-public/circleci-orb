@@ -29,6 +29,12 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
+      - run:
+          name: "print environment id"
+          command: echo ${MABL_ENVIRONMENT_ID}
+      - run:
+          name: "print application id"
+          command: echo ${MABL_APPLICATION_ID}
       - trigger-tests/run-tests:
           api-key: MABL_CICD_KEY
           application-id: ${MABL_APPLICATION_ID}
