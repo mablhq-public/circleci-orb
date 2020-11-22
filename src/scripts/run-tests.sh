@@ -19,12 +19,12 @@ function run_tests() {
   fi
   
   if [ -n "${PARAM_ENVIRONMENT_ID}" ] && [[ ! "${PARAM_ENVIRONMENT_ID}" == *-e ]]; then
-    echo "environment-id parameter must end with a '-e'."
+    echo "environment-id parameter (${PARAM_ENVIRONMENT_ID}) must end with a '-e'."
     return 1
   fi
   
   if [ -n "${PARAM_APPLICATION_ID}" ] && [[ ! "${PARAM_APPLICATION_ID}" == *-a ]]; then
-    echo "application-id parameter must end with a '-a'."
+    echo "application-id parameter (${PARAM_APPLICATION_ID}) must end with a '-a'."
     return 1
   fi
   
