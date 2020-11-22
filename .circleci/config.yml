@@ -25,23 +25,23 @@ parameters:
 jobs:
   # Define one or more jobs which will utilize your orb's commands and parameters to validate your changes.
   integration-test:
+    parameters:
+      run-tests-env-id:
+        type: string
+        default: $MABL_ENVIRONMENT_ID
+      run-tests-app-id:
+        type: string
+        default: $MABL_APPLICATION_ID
     docker:
       - image: cimg/base:stable
     steps:
       - checkout
-      - run:
-          name: "print environment id"
-          command: echo ${MABL_ENVIRONMENT_ID}
-      - run:
-          name: "print application id"
-          command: echo ${MABL_APPLICATION_ID}
       - trigger-tests/run-tests:
           api-key: MABL_CICD_KEY
+          environment-id: << parameters.run-tests-env-id >>
+          application-id: << parameters.run-tests-app-id >>
           labels: smoke
       - trigger-tests/parse-results
-    environment:
-      PARAM_APPLICATION_ID: $MABL_ENVIRONMENT_ID
-      PARAM_ENVIRONMENT_ID: $MABL_APPLICATION_ID
 
 workflows:
   # Prior to producing a development orb (which requires credentials) basic validation, linting, and even unit testing can be performed.
