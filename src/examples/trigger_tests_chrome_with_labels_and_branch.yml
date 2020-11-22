@@ -3,7 +3,7 @@ description: >
 usage:
   version: 2.1
   orbs:
-    mabl-trigger-tests: mabl/trigger-tests@1.0.3
+    mabl-trigger-tests: mabl/trigger-tests@1.0.4
     jobs:
       run-mabl-tests:
         machine: true
@@ -15,7 +15,7 @@ usage:
               browsers: chrome
               labels: myPlanLabel
               branch: developmentBranch
-    workflows:
-      test-my-app:
-        jobs:
-          - run-mabl-tests
+  workflows:
+    test-my-app:
+      jobs:
+        - run-mabl-tests
