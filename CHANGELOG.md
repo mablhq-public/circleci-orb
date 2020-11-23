@@ -7,16 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-
-### Fixed
+## [1.0.4] - November 22, 2020
 
 ### Changed
 
+* update READMEs
+* update examples
 
-## [1.0.0] - 2010-10-30
+## [1.0.0] - October 30, 2020
 
 Initial Release
 
-[Unreleased]: https://github.com/mablhq-public/circleci-orb/compare/1.0.0...main
+[Unreleased]: https://github.com/mablhq-public/circleci-orb/compare/1.0.4...main
+[1.0.4]: https://github.com/mablhq-public/circleci-orb/releases/tag/1.0.4
 [1.0.0]: https://github.com/mablhq-public/circleci-orb/releases/tag/1.0.0
