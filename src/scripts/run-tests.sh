@@ -1,5 +1,5 @@
 function run_tests() {
-  USER_AGENT="mabl-circleci-orb/1.0.0"
+  USER_AGENT="mabl-circleci-orb/1.0.5"
   
   # Verify parameters
   if [ -z "${PARAM_API_KEY}" ]; then
@@ -45,9 +45,17 @@ function run_tests() {
   fi
   
   shopt -s extglob
-  if [ -n "${PARAM_URL}" ] && [[ "${PARAM_URL}" != "http*(s)://*" ]]; then
-    echo "Invalid URL parameter provided: ${PARAM_URL}"
-    return 1
+  if [ -n "${PARAM_URL}" ]; then
+    # Check if this is an environment variable
+    if [[ "${PARAM_URL}" == \$* ]]; then
+      PARAM_URL=${PARAM_URL:1}
+      PARAM_URL=${!PARAM_URL}
+    fi
+
+    if [ -n "${PARAM_URL}" ] && [[ "${PARAM_URL}" != http*(s)://* ]]; then
+        echo "Invalid URL parameter provided: ${PARAM_URL}"
+      return 1
+    fi
   fi
   
   # Create JSON payload for deployment event
