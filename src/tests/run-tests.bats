@@ -130,3 +130,16 @@ setup() {
     [ "$status" -eq 0 ]
     [ "${lines[-1]}" = "All plans passed." ]
 }
+
+@test '13: Invalid URL - environment variable' {
+    export PARAM_API_KEY="TEST_API_KEY"
+    export TEST_API_KEY="example-key"
+    export PARAM_APPLICATION_ID="example-application-a"
+    export PARAM_ENVIRONMENT_ID="example-environment-e"
+    export PARAM_URL="\$URL_ENV_VARIABLE"
+    export URL_ENV_VARIABLE="ftp://ftp.funet.fi"
+
+    run run_tests
+    [ "$status" -eq 1 ]
+    [ "${lines[0]}" = "Invalid URL parameter provided: ${URL_ENV_VARIABLE}" ]
+}
