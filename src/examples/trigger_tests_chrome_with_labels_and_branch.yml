@@ -3,18 +3,18 @@ description: >
 usage:
   version: 2.1
   orbs:
-    mabl-trigger-tests: mabl/trigger-tests@1.0.4
-    jobs:
-      run-mabl-tests:
-        machine: true
-        steps:
-          - mabl-trigger-tests/test:
-              api-key: MABL_API_KEY
-              environment-id: myenvironmentID-e
-              application-id: myApplicationID-a
-              browsers: chrome
-              labels: myPlanLabel
-              branch: developmentBranch
+    mabl-trigger-tests: mabl/trigger-tests@1.0.5
+  jobs:
+    run-mabl-tests:
+      machine: true
+      steps:
+        - mabl-trigger-tests/run-tests:
+            api-key: MABL_API_KEY
+            environment-id: myEnvironmentID-e
+            application-id: myApplicationID-a
+            browsers: chrome
+            labels: myPlanLabel
+            mabl-branch: developmentBranch
   workflows:
     test-my-app:
       jobs:
