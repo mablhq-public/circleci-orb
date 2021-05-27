@@ -16,3 +16,4 @@ usage:
     test-my-app:
       jobs:
         - run-mabl-tests
+
