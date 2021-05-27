@@ -3,7 +3,7 @@ description: >
 usage:
   version: 2.1
   orbs:
-    mabl-trigger-tests: mabl/trigger-tests@1.0.5
+    mabl-trigger-tests: mabl/trigger-tests@1.0.6
   jobs:
     run-mabl-tests:
       machine: true
