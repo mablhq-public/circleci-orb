@@ -125,7 +125,7 @@ setup() {
     export PARAM_API_KEY="MABL_API_KEY"
     export PARAM_APPLICATION_ID="${MABL_APPLICATION_ID}"
     export PARAM_ENVIRONMENT_ID="${MABL_ENVIRONMENT_ID}"
-    export PARAM_AWAIT_COMPLETION="true"
+    export PARAM_AWAIT_COMPLETION=1
     run run_tests
     [ "$status" -eq 0 ]
     [ "${lines[-1]}" = "All plans passed." ]

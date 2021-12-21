@@ -33,3 +33,38 @@ Example: `[semver:major]`
 * On merge, after manual approval, the orb will automatically be published to the Orb Registry.
 
 For further questions/comments about this or other orbs, visit the Orb Category of [CircleCI Discuss](https://discuss.circleci.com/c/orbs).
+
+### Notes for Development on macOS
+
+#### Prerequisites
+
+The bash shipped with macOS is old. To run the integration locally, install bash from brew using
+`brew install bash` and invoke `/usr/local/bin/bash`.
+
+Install `bats` - the Bash unit test framework - using `brew install bats`.
+
+### Running Tests Locally
+
+Set environment variables. The application ID and environment ID can be anything.
+Note that PARAM_API_KEY is supposed to have an environment variable name assigned.
+
+```bash
+export PARAM_API_KEY=MABL_API_KEY
+export PARAM_APPLICATION_ID=mZdHH6jnBGLW6G56mMK3tg-a
+export PARAM_ENVIRONMENT_ID=WRZ3WcvFQ2MTgqC41ZxmMw-e
+export MABL_API_KEY=<a fake or real API key>
+```
+
+If you want to kick off test runs, then set the `MABL_API_KEY` variable to a real
+key and also set the following environment variables.
+
+```bash
+export MABL_APPLICATION_ID=mZdHH6jnBGLW6G56mMK3tg-a
+export MABL_ENVIRONMENT_ID=WRZ3WcvFQ2MTgqC41ZxmMw-e
+```
+
+To run the tests, execute
+
+```bash
+bats src/tests/run-tests.bats
+```
