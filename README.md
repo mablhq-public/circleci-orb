@@ -43,6 +43,8 @@ The bash shipped with macOS is old. To run the integration locally, install bash
 
 Install `bats` - the Bash unit test framework - using `brew install bats`.
 
+Install `circleci` command-line using `brew install circleci`.
+
 ### Running Tests Locally
 
 Set environment variables. The application ID and environment ID can be anything.
